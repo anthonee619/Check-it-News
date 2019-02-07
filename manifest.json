@@ -1,0 +1,19 @@
+{
+  "name": "Check it News",
+  "description" : "Inf 134 Chrome Extension",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "browser_action": {
+    "default_popup": "check_it.html",
+    "default_icon": "hello_extensions.png"
+  },
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+F",
+        "mac": "MacCtrl+Shift+F"
+      },
+      "description": "Opens hello.html"
+    }
+  }
+}
