@@ -1,9 +1,17 @@
 {
+  "manifest_version": 2,
   "name": "Check it News",
   "description" : "Inf 134 Chrome Extension",
   "version": "1.0.0",
-  "manifest_version": 2,
   "browser_action": {
+    "default_icon" : "check_it.png",
     "default_popup": "check_it.html"
+  },
+  "content_scripts" : [
+    {"matches" : ["<all_urls>"],
+    "js": ["thirdParty/jquery-3.3.1.min.js", "content.js"]}
+  ],
+  "background" : {
+    "scripts" : ["thirdParty/jquery-3.3.1.min.js", "background.js"]
   }
 }
