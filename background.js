@@ -1,13 +1,9 @@
 console.log("I have found the background devtool!");
 
-chrome.browserAction.onClicked.addListener(buttonClicked);
 
-function buttonClicked () {
-  console.log("You did it!");
-}
+chrome.runtime.onMessage.addListener(searchResults);
+window.urls = {};
 
-function sendTo () {
-  //sends a message to the content script
-
-  
+function searchResults(req, sender, sendResponse){
+  urls = req.value;
 }
