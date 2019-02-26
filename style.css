@@ -3,6 +3,10 @@ body {
   width: 600px;
 }
 
+h1 {
+  text-align: center;
+}
+
 ul {
   list-style-type: none;
 }
