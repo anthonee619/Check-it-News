@@ -50,31 +50,31 @@ ul {
   margin-top: 0;
 }
 #feedback-link:link, #feedback-link:visited{
-  background-color: #00B4DB;
+  background-color: #3DAC3D;
   color: white;
   padding: 5px 20px 15px;
+  width: 80%;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   border-radius: 5px;
 }
 #feedback-link:hover, #feedback-link:active{
-  background-color: #0083B0;
+  background-color: #55D155;
 }
 #relatedNews{
-  padding-left: 0;
+  padding-left: 10px;
   margin-bottom: 10px;
+  list-style-type: disc;
 }
 #related-link:link, #related-link:visited{
   background-color: white;
   color: black;
-  /* padding: 5px 20px 15px; */
   margin-bottom: 2px;
-  /* text-align: center; */
   text-decoration: none;
   display: inline-block;
-  /* border-radius: 5px; */
 }
 #related-link:hover, #related-link:active{
   background-color: #bdc3c7;
+  text-decoration: underline;
 }
