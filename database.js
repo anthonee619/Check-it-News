@@ -1,12 +1,13 @@
 console.log("Testing database file");
 
+chrome.runtime.onMessage.addListener(updateData);
+
 var PrimaryRatingEnum = {
     Unknown: 0,
     MostlyTrusted: 1,
     Questionable: 2,
     Untrustworthy: 3,
-    Satire: 4,
-    Clickbait: 5
+    Clickbait: 4
 };
     
 var SecondaryRatingEnum = {
@@ -16,6 +17,12 @@ var SecondaryRatingEnum = {
     LeansLeft: 3,
     LeansRight: 4
 };
+
+var PageRating = PrimaryRatingEnum.Unknown;
+var $TypeString = $('#type');
+var $DescString = $('#description');
+
+
     
 var websites = [];
 
@@ -78,19 +85,19 @@ var nyrkr = {_id: "www.newyorker.com", Title: "New Yorker", PrimaryRating: Prima
 websites.push(nyrkr);
 var cnn = {_id: "www.cnn.com", Title: "CNN", PrimaryRating: PrimaryRatingEnum.MostlyTrusted, SecondaryRating: SecondaryRatingEnum.Unknown};
 websites.push(cnn);
-var fxnws = {_id: "www.foxnews.com", Title: "Fox News", PrimaryRating: PrimaryRatingEnum.MostlyTrusted, SecondaryRating: SecondaryRatingEnum.Unknown};
+var fxnws = {_id: "www.foxnews.com", Title: "Fox News", PrimaryRating: PrimaryRatingEnum.Questionable, SecondaryRating: SecondaryRatingEnum.Unknown};
 websites.push(fxnws);
-var bzfd = {_id: "www.buzzfeed.com", Title: "BuzzFeed", PrimaryRating: PrimaryRatingEnum.MostlyTrusted, SecondaryRating: SecondaryRatingEnum.Unknown};
+var bzfd = {_id: "www.buzzfeed.com", Title: "BuzzFeed", PrimaryRating: PrimaryRatingEnum.Questionable, SecondaryRating: SecondaryRatingEnum.Unknown};
 websites.push(bzfd);
-var yhoo = {_id: "www.yahoo.com", Title: "Yahoo", PrimaryRating: PrimaryRatingEnum.MostlyTrusted, SecondaryRating: SecondaryRatingEnum.Unknown};
+var yhoo = {_id: "www.yahoo.com", Title: "Yahoo", PrimaryRating: PrimaryRatingEnum.Questionable, SecondaryRating: SecondaryRatingEnum.Unknown};
 websites.push(yhoo);
-var msnbc = {_id: "www.msnbc.com", Title: "MSNBC", PrimaryRating: PrimaryRatingEnum.MostlyTrusted, SecondaryRating: SecondaryRatingEnum.Unknown};
+var msnbc = {_id: "www.msnbc.com", Title: "MSNBC", PrimaryRating: PrimaryRatingEnum.Questionable, SecondaryRating: SecondaryRatingEnum.Unknown};
 websites.push(msnbc);
-var wsht = {_id: "www.washingtontimes.com", Title: "Washington Times", PrimaryRating: PrimaryRatingEnum.MostlyTrusted, SecondaryRating: SecondaryRatingEnum.Unknown};
+var wsht = {_id: "www.washingtontimes.com", Title: "Washington Times", PrimaryRating: PrimaryRatingEnum.Questionable, SecondaryRating: SecondaryRatingEnum.Unknown};
 websites.push(wsht);
-var yhoonws = {_id: "news.yahoo.com", Title: "Yahoo News", PrimaryRating: PrimaryRatingEnum.MostlyTrusted, SecondaryRating: SecondaryRatingEnum.Unknown};
+var yhoonws = {_id: "news.yahoo.com", Title: "Yahoo News", PrimaryRating: PrimaryRatingEnum.Questionable, SecondaryRating: SecondaryRatingEnum.Unknown};
 websites.push(yhoonws);
-var haarp = {_id: "www.haarp.net", Title: "HAARP", PrimaryRating: PrimaryRatingEnum.Untrustworthy, SecondaryRating: SecondaryRatingEnum.Unknown};
+var haarp = {_id: "www.haarp.net", Title: "HAARP", PrimaryRating: PrimaryRatingEnum.Questionable, SecondaryRating: SecondaryRatingEnum.Unknown};
 websites.push(haarp);
 var amznws = {_id: "www.amazingnews.net", Title: "Amazing News", PrimaryRating: PrimaryRatingEnum.Untrustworthy, SecondaryRating: SecondaryRatingEnum.Unknown};
 websites.push(amznws);
@@ -112,7 +119,7 @@ var usadp = {_id: "www.usadailypost.us", Title: "USA Daily Post", PrimaryRating:
 websites.push(usadp);
 var dusaup = {_id: "www.dailyusaupdate.com", Title: "Daily USA Update", PrimaryRating: PrimaryRatingEnum.Untrustworthy, SecondaryRating: SecondaryRatingEnum.Unknown};
 websites.push(dusaup);
-var onion = {_id: "www.theonion.com", Title: "The Onion", PrimaryRating: PrimaryRatingEnum.Satire, SecondaryRating: SecondaryRatingEnum.Unknown};
+var onion = {_id: "www.theonion.com", Title: "The Onion", PrimaryRating: PrimaryRatingEnum.Clickbait, SecondaryRating: SecondaryRatingEnum.Unknown};
 websites.push(onion);
 var amrnws = {_id: "www.americannews.com", Title: "American News", PrimaryRating: PrimaryRatingEnum.Untrustworthy, SecondaryRating: SecondaryRatingEnum.Unknown};
 websites.push(amrnws);
@@ -134,3 +141,52 @@ var tmz = {_id: "www.tmz.com", Title: "TMZ", PrimaryRating: PrimaryRatingEnum.Cl
 websites.push(tmz);
 
 console.log(websites);
+
+function updateData(info) {
+    console.log("Database info: " + info.title + " / " + info.host);
+    var tempPage = null;
+    var i;
+    for (i = 0; i < websites.length; ++i) {
+        if (websites[i]._id == info.host) {
+            tempPage = websites[i];
+            break;
+        }
+    }
+
+    if (tempPage) {
+        PageRating = tempPage.PrimaryRating;
+    } else {
+        PageRating = PrimaryRatingEnum.Unknown;
+    }
+
+    displayData();
+
+}
+
+function displayData() {
+    switch (PageRating) {
+        case PrimaryRatingEnum.Unknown:
+            $TypeString.innerHTML = "Unknown";
+            $DescString.innerHTML = "Currently there is not enough information on this source to provide reliable feedback.";
+            break;
+        case PrimaryRatingEnum.MostlyTrusted:
+            $TypeString.innerHTML = "Reliable";
+            $DescString.innerHTML = "This source has a trustworthy reputation.";
+            break;
+        case PrimaryRatingEnum.Questionable:
+            $TypeString.innerHTML = "Questionable";
+            $DescString.innerHTML = "This source has been known to be untrustworthy at times. Be wary of information given.";
+            break;
+        case PrimaryRatingEnum.Untrustworthy:
+            $TypeString.innerHTML = "Unreliable";
+            $DescString.innerHTML = "This source has a reputation for reporting fake news and therefore is untrustworthy.";
+            break;
+        case PrimaryRatingEnum.Clickbait:
+            $TypeString.innerHTML = "Clickbait";
+            $DescString.innerHTML = "This sources is known for being clickbait and should not be trusted.";
+            break;
+    }
+
+    console.log("Type: " + $TypeString.innerHTML);
+    console.log("Desc: " + $DescString.innerHTML);
+}
