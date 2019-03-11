@@ -81,7 +81,7 @@ var wired = {_id: "www.wired.com", Title: "Wired", PrimaryRating: PrimaryRatingE
 websites.push(wired);
 var nyrkr = {_id: "www.newyorker.com", Title: "New Yorker", PrimaryRating: PrimaryRatingEnum.MostlyTrusted, SecondaryRating: SecondaryRatingEnum.Unknown};
 websites.push(nyrkr);
-var cnn = {_id: "www.cnn.com", Title: "CNN", PrimaryRating: PrimaryRatingEnum.MostlyTrusted, SecondaryRating: SecondaryRatingEnum.Unknown};
+var cnn = {_id: "www.cnn.com", Title: "CNN", PrimaryRating: PrimaryRatingEnum.Questionable, SecondaryRating: SecondaryRatingEnum.Unknown};
 websites.push(cnn);
 var fxnws = {_id: "www.foxnews.com", Title: "Fox News", PrimaryRating: PrimaryRatingEnum.Questionable, SecondaryRating: SecondaryRatingEnum.Unknown};
 websites.push(fxnws);
