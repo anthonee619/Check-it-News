@@ -5,9 +5,10 @@ $(document).ready(function() {
   var docTitle = document.title;
   var hostWebsite = window.location.hostname;
 
-  var info = {title: document.title, host: window.location.hostname};
+  var info = {title: docTitle, host: hostWebsite};
 
   chrome.runtime.sendMessage(info);
+  updateData(info);
   // var query = encodeURI(makeQuery(docTitle));
 
   // search(query);
