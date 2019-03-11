@@ -5,6 +5,7 @@ chrome.runtime.onMessage.addListener(searchResults);
 window.urls = {};
 
 function searchResults(req, sender, sendResponse){
+  window.info = req;
   console.log(req);
   console.log(makeQuery(req.title));
   search(makeQuery(req.title));

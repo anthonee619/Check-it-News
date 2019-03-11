@@ -19,8 +19,6 @@ var SecondaryRatingEnum = {
 };
 
 var PageRating = PrimaryRatingEnum.Unknown;
-var $TypeString = $('#type');
-var $DescString = $('#description');
 
 
     
@@ -164,29 +162,28 @@ function updateData(info) {
 }
 
 function displayData() {
+    console.log($("#type").text());
     switch (PageRating) {
         case PrimaryRatingEnum.Unknown:
-            $TypeString.innerHTML = "Unknown";
-            $DescString.innerHTML = "Currently there is not enough information on this source to provide reliable feedback.";
+            $("#type").text("Unknown");
+            $("#description").text("Currently there is not enough information on this source to provide reliable feedback.");
             break;
         case PrimaryRatingEnum.MostlyTrusted:
-            $TypeString.innerHTML = "Reliable";
-            $DescString.innerHTML = "This source has a trustworthy reputation.";
+            $("#type").text("Trustworthy");
+            $("#description").text("This source has a trustworthy reputation.");
             break;
         case PrimaryRatingEnum.Questionable:
-            $TypeString.innerHTML = "Questionable";
-            $DescString.innerHTML = "This source has been known to be untrustworthy at times. Be wary of information given.";
+            $("#type").text("Questionable");
+            $("#description").text("This source has been known to be untrustworthy at times. Be wary of information given.");
             break;
         case PrimaryRatingEnum.Untrustworthy:
-            $TypeString.innerHTML = "Unreliable";
-            $DescString.innerHTML = "This source has a reputation for reporting fake news and therefore is untrustworthy.";
+            $("#type").text("Untrustworthy");
+            $("#description").text("This source has a reputation for reporting fake news and therefore is untrustworthy.");
             break;
         case PrimaryRatingEnum.Clickbait:
-            $TypeString.innerHTML = "Clickbait";
-            $DescString.innerHTML = "This sources is known for being clickbait and should not be trusted.";
+            $("#type").text("Clickbait");
+            $("#description").text("This sources is known for being clickbait and should not be trusted.");
             break;
     }
 
-    console.log("Type: " + $TypeString.innerHTML);
-    console.log("Desc: " + $DescString.innerHTML);
 }

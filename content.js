@@ -8,5 +8,5 @@ $(document).ready(function() {
   var info = {title: docTitle, host: hostWebsite};
 
   chrome.runtime.sendMessage(info);
-  updateData(info);
+  //updateData(info);
 });
